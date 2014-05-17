@@ -1,0 +1,12 @@
+## APIVersion: 100003
+## Title: |cDCDC22Swizzy's|r Addon
+## Version: 1.0.0.0
+## Author: Swizzy
+## DependsOn: mhFramework
+
+## SavedVariables: SwizzysAddonSettings
+
+swizzysaddon.lua
+StoreStuff.lua
+BankStuff.lua
+Settings.lua
