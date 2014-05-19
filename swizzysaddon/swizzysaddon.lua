@@ -5,28 +5,50 @@
   * Special Thanks To: Zenimax Online Studios & Bethesda for The Elder Scrolls Online
 ]]--
 
-WF_SW_SwizzyAddonVars = {} -- Saved variables
-WF_SW_SwizzyAddon = {}
-WF_SW_SwizzyAddon.__index = WF_SW_SwizzyAddon
-WF_SW_SwizzyAddon.AddonID = "swizzysaddon"
+SwizzyAddon = {}
+SwizzyAddon.name = "Swizzy's Addon"
+SwizzyAddon.AddonID = "swizzysaddon"
+SwizzyAddon.versionString = "v1.0.0"
+SwizzyAddon.Initalized = false
 
-local LAM = LibStub("LibAddonMenu-1.0")
+function SwizzyAddon.Initialize( eventCode, AddonName )
+	-- Only set up for SwizzyAddon and only if it's not already initalized
+	if AddonName ~= SwizzyAddon.name or SwizzyAddon.Initalized then
+		return
+	end
+	-- Create or load our settings storage
+	SwizzyAddon.Settings = ZO_SavedVars:NewAccountWide("SwizzysAddonSettings", SwizzyAddon.versionString, nil, SwizzyAddon.Defaults)
+	-- Create our settings menu one second after the addon has been initalized...
+	zo_callLater(SwizzyAddon.SetupSettingsMenu, 1000)
+
+	SLASH_COMMANDS["/leave"] = LeaveGroup()
+	SLASH_COMMANDS["/coords"] = PrintCoords
+	CHAT_SYSTEM:AddMessage("|cDCDC22"..SwizzyAddon.AddonName.."|r "..SwizzyAddon.versionString.." Loaded!")
+	SwizzyAddon.Initalized = true
+end
+
+-- Hook initialization onto the ADD_ON_LOADED event
+EVENT_MANAGER:RegisterForEvent( SwizzyAddon.name, EVENT_ADD_ON_LOADED, SwizzyAddon.Initialize )
 
 --[[ LOCAL PROGRAMMING ]]--
 
 local PrintCoords = function()
-	SetMapToPlayerLocation() -- Make sure we get the accurate location
 	local x, y = GetMapPlayerPosition("player")
 	CHAT_SYSTEM:AddMessage(string.format("X: %f Y: %f", x, y))
 end
 
-local LeaveGroup = function()
+local function ShowCoords()
+	local x, y = GetMapPlayerPosition("player")
+
+end
+
+local function LeaveGroup()
 	if IsUnitGrouped("player") then
 		GroupLeave()
 	end
 end
 
-function WF_SW_SwizzyAddon_GetItemLink(bagId, slotId)
+function SwizzyAddon.GetItemLink(bagId, slotId)
 	return GetItemLink(bagId, slotId):gsub("%^%a+","")
 end
 

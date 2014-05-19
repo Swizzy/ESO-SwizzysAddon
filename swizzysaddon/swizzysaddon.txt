@@ -1,10 +1,12 @@
 ## APIVersion: 100003
-## Title: |cDCDC22Swizzy's|r Addon
-## Version: 1.0.0.0
+## Title: |cDCDC22Swizzy's|r Addon v1.0.0
+## Version: 1.0.0
 ## Author: Swizzy
-## DependsOn: mhFramework
-
 ## SavedVariables: SwizzysAddonSettings
+## OptionalDependsOn: LibAddonMenu-1.0
+
+LibStub/LibStub.lua
+LibAddonMenu-1.0/LibAddonMenu-1.0.lua
 
 swizzysaddon.lua
 StoreStuff.lua
