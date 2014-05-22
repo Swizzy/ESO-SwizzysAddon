@@ -10,5 +10,6 @@ LibAddonMenu-1.0/LibAddonMenu-1.0.lua
 
 swizzysaddon.lua
 StoreStuff.lua
-BankStuff.lua
+StackStuff.lua
+EventHandlers.lua
 Settings.lua
